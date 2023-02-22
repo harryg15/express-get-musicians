@@ -21,3 +21,23 @@ app.get('/musicians/:id', async (req, res) => {
     const getSpecific = await Musician.findByPk(req.params.id)
     res.json(getSpecific)
 })
+
+app.use(express.json())
+
+//create
+app.post('/musicians', async (req, res) => {
+    await Musician.create(req.body)
+    res.send(await Musician.findAll())
+})
+
+//update
+app.put('/musicians/:id', async (req, res) => {
+    await Musician.update(req.body, {where: {id: req.params.id}})
+    res.send(await Musician.findAll())
+})
+
+//delete
+app.delete('/musicians/:id', async (req, res) => {
+    await Musician.destroy({where: {id: req.params.id}})
+    res.send(await Musician.findAll())
+})
