@@ -30,7 +30,7 @@ app.post('/musicians', async (req, res) => {
         await Musician.create(req.body)
         res.status(200).send(await Musician.findAll())
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({err: error.message})
     }
 })
 
