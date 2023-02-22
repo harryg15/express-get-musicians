@@ -26,8 +26,12 @@ app.use(express.json())
 
 //create
 app.post('/musicians', async (req, res) => {
-    await Musician.create(req.body)
-    res.send(await Musician.findAll())
+    try {
+        await Musician.create(req.body)
+        res.status(200).send(await Musician.findAll())
+    } catch (error) {
+        res.status(500).send(error)
+    }
 })
 
 //update
